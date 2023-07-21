@@ -1,62 +1,43 @@
-const fs = require('fs'); // needed since js doesnt have native file reader 
+const fs = require('fs'); // necessario para ler arquivos ja que n tem nativo
 
-// lista global com pares [palavra, freq]
+// lista global com pares [word, frequency]
 let word_freqs = [];
 
-const stop_words_t = fs.readFileSync('stop_words.txt', 'utf-8').split(',');
-const stop_words = stop_words_t.map(word => {
-    return word.toLowerCase();
-});
+// gera lista de palavras stop
+const stop_words_t = fs.readFileSync('stop_words.txt', 'utf-8');
+let stop_words = stop_words_t.split(',');
+stop_words = stop_words.map(word => word.toLowerCase());
+stop_words.push(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']); 
 
-// console.log(stop_words);
+// gera lista de linhas do arquivo
+const prideAndPrejudice = fs.readFileSync('pride-and-prejudice.txt', 'utf-8');
+const lines = prideAndPrejudice.split('\n');
 
-const prideAndPrejudice = fs.readFileSync('pride-and-prejudice.txt', 'utf-8').split('\n');
+// itera sobre a lista de linhas
+for (let line of lines) {
+    const words = line.toLowerCase().match(/[a-z0-9]+/g); // gera palavras
 
-// console.log(prideAndPrejudice);
+    if (!words) continue; // verifica linhas vazias
 
-for (let line of prideAndPrejudice) {
-    let start_char = null;
-    let i = 0;
-    for (let c of line) {
-
-        if (start_char == null) {
-            if (c.match(/[A-Za-z0-9']/)) {
-                start_char = i;
-            }
-
-        } else {
-            if (!(c.match(/[A-Za-z0-9']/))) {
-                let found = false;
-                let word = line.slice(start_char, i).toLowerCase(); 
-
-                if (!(stop_words.includes(word))) {
-                    let pair_index = 0;
-                    for (let pair of word_freqs) {
-                        if (word == pair[0]) {
-                            pair[1] += 1;
-                            found = true;
-                            break;
-                        }
-                        pair_index += 1;
-                    };
-                    if (!found) {
-                        word_freqs.push([word, 1]);
-                    } else if (word_freqs.length > 1) {
-                        for (let n = pair_index - 1; n >= 0; n--) {
-                            if (word_freqs[pair_index][1] > word_freqs[n][1]) {
-                                [word_freqs[n], word_freqs[pair_index]] = [word_freqs[pair_index], word_freqs[n]];
-                                pair_index = n;
-                            }
-                        }
-                    }
+    for (let word of words) { // itera sobre palavrass
+        if (!stop_words.includes(word)) { // confere se n eh stop word
+            let found = false;
+            const lowercaseWord = word.toLowerCase();
+            for (let pair of word_freqs) {
+                if (lowercaseWord === pair[0]) {
+                    pair[1] += 1; // caso a palavra exista na contagem adiciona
+                    found = true;
+                    break;
                 }
-                start_char = null;
             }
-
+            if (!found) { // adiciona palavra na lista de contagem caso n exista
+                word_freqs.push([lowercaseWord, 1]);
+            }
         }
-        i += 1;
-    };
-};
+    }
+}
+
+word_freqs.sort((a, b) => b[1] - a[1]); // optei por realizar a ord for na func
 
 for (let tf of word_freqs.slice(0, 25)) {
     console.log(tf[0], '-', tf[1]);
