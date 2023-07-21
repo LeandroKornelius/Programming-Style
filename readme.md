@@ -1,10 +1,13 @@
 # Programming-Style Introspective
-To further my knowledge in programming styles, this repository solves the term frequency problem through the introspective style using JavaScript.<br>
+A equipe composta por:
+Leandro Beloti Kornelius - 211020900<br>
+Matheus Oliveira de Almeida Marques da Cruz - 211055343<br>
+Marcelo Medeiros Amorim - 200040987<br>
+Paulo Octávio Lopes Schottz - 180049445<br>
+Optamos pela escolha do estilo Monolithic presente no livro Exercises in Programming Styles da Crista Lopes.<br>
 
-In this repository there is also a file that solves the term frequency problem using introspective and python. Such file was extracted from the repository https://github.com/crista/exercises-in-programming-style from Crista Lopes. <br>
+Neste repositório, presente no endereço https://github.com/K0RNELIUS/Programming-Style, existem os arquivos de stop_words, pride-and-prejudice.txt e o monolithic.py que foram extraídos do repositório https://github.com/crista/exercises-in-programming-style da Crista Lopes para embasar a solução e verificar sua corretude.<br>
 
-Since I used JavaScript to code the solution, the instalation to node will be necessary to run the code. The download can be done through https://nodejs.org/en/download. <br>
+Para a solução em outra linguagem optamos por JavaScript em que para realizar a execução do programa é necessário instalar o node, presente no endereço https://nodejs.org/en/download e executar o seguinte comando no diretório do projeto:<br>
 
-I will be more than happy to chat about problems, suggestions, other language solutions through my email (leandro.kornelius@gmail.com). <br>
-
-Thank you!
+![Alt text](</run js solution.png>)
