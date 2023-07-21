@@ -19,20 +19,20 @@ for (let line of prideAndPrejudice) {
     let i = 0;
     for (let c of line) {
 
-        if (start_char === null) {
-            if (c.match(/[A-Za-z0-9]/)) {
+        if (start_char == null) {
+            if (c.match(/[A-Za-z0-9']/)) {
                 start_char = i;
             }
 
         } else {
-            if (!(c.match(/[A-Za-z0-9]/))) {
+            if (!(c.match(/[A-Za-z0-9']/))) {
                 let found = false;
                 let word = line.slice(start_char, i).toLowerCase(); 
 
                 if (!(stop_words.includes(word))) {
                     let pair_index = 0;
                     for (let pair of word_freqs) {
-                        if (word === pair[0]) {
+                        if (word == pair[0]) {
                             pair[1] += 1;
                             found = true;
                             break;
